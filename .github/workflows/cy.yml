@@ -54,18 +54,18 @@ jobs:
           deployment-sequence-number: '${{ github.run_id }}'
           update-sequence-number: '${{ github.run_id }}'
           issue-keys: "${{ steps.jira_keys.outputs.jira-keys }}"
-          display-name: "Deployment number asdf"
+          display-name: "Deployment number ${{ github.run_number }}"
           url: "${{github.event.repository.url}}/actions/runs/${{github.run_id}}"
-          description: "Test Deployment"
+          description: "Development Deployment"
           last-updated: '${{github.event.head_commit.timestamp}}'
-          label: 'Test Deployment Label'
+          label: 'Development Deployment'
           state: '${{env.DEPLOY_STATE}}'
           pipeline-id: '${{ github.repository }} ${{ github.workflow }}'
           pipeline-display-name: 'Workflow: ${{ github.workflow }} (#${{ github.run_number }})'
           pipeline-url: '${{github.event.repository.url}}/actions/runs/${{github.run_id}}'
-          environment-id: 'Test'
-          environment-display-name: 'Test'
-          environment-type: 'testing'
+          environment-id: 'Development'
+          environment-display-name: 'Development'
+          environment-type: 'development'
       - name: Confirm Jira Deploy Output
         if: success()
         run: |
