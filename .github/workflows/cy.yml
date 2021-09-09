@@ -38,6 +38,9 @@ jobs:
       - name: Confirm Deploy State and Jira Key Values
         if: always()
         run: |
+          echo "CLOUD_ID : ${{ secrets.CLOUD_ID }}"
+          echo "CLIENT_ID : ${{ secrets.CLIENT_ID }}"
+          echo "CLIENT_SECRET : ${{ secrets.CLIENT_SECRET }}"
           echo "DEPLOY_STATE: ${{env.DEPLOY_STATE}}"
           echo "Jira Keys: ${{steps.jira_keys.outputs.jira-keys}}"
       - name: Push Deployment Info to Jira
@@ -45,7 +48,7 @@ jobs:
         id: push_deployment_info_to_jira
         uses: HighwayThree/jira-upload-deployment-info@master
         with:
-          cloud-id: '${{ secrets.CLOUD_ID }}'
+          cloud-instance-base-url: '${{ secrets.CLOUD_ID }}'
           client-id: '${{ secrets.CLIENT_ID }}'
           client-secret: '${{ secrets.CLIENT_SECRET }}'
           deployment-sequence-number: '${{ github.run_id }}'
